@@ -172,15 +172,19 @@ else if(isset($_POST['loginbtn'])){
 
 		if($contact_no==$data['contact_no']AND $password==$data['password'] ){
 			session_start();
-			$SESSION['user_role']=$data['user_role'];
-			$SESSION['username']=$data['username'];
-			if($data['user_role']=="Admin"){
+			$_SESSION['user_role']=$data['user_role'];
+			$_SESSION['username']=$data['username'];
+			
+			if($data['user_role']=="Admin")
+			{
+				$_SESSION['key'] = "AdminKey";
 				?>
 				<script>location.assign("admin/index.php");</script>
 
 
 				<?php
 			}else{
+				$_SESSION['key'] = "VotersKey";
 		?>
 			<script> location.assign("voters/index.php");</script>
         <?php
@@ -193,4 +197,5 @@ else if(isset($_POST['loginbtn'])){
 		<?php
 	}
 }  
+}
 ?>
