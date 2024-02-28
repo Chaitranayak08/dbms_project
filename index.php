@@ -165,21 +165,26 @@ else if(isset($_POST['loginbtn'])){
 	$contact_no=mysqli_real_escape_string($db, $_POST['contact_no']);
 	$password=mysqli_real_escape_string($db, sha1($_POST['password']));
 	//Query fetch/SELECT
+
 	$fetchingData= mysqli_query($db,"SELECT * FROM users WHERE contact_no='". $contact_no."'") or die(mysqli_error($db));
+	
 	$data=mysqli_fetch_assoc($fetchingData);
-	if(mysqli_num_rows($fetchingData)>0){
+
+	if(mysqli_num_rows($fetchingData)>0)
+	{
 		$data=mysqli_fetch_assoc($fetchingData);
 
-		if($contact_no==$data['contact_no']AND $password==$data['password'] ){
+		if($contact_no == $data['contact_no'] AND $password == $data['password'] )
+		{
 			session_start();
-			$_SESSION['user_role']=$data['user_role'];
-			$_SESSION['username']=$data['username'];
+			$_SESSION['user_role'] = $data['user_role'];
+			$_SESSION['username'] = $data['username'];
 			
-			if($data['user_role']=="Admin")
+			if($data['user_role'] == "Admin")
 			{
 				$_SESSION['key'] = "AdminKey";
 				?>
-				<script>location.assign("admin/index.php");</script>
+				<script> location.assign("admin/index.php?homepage=1");</script>
 
 
 				<?php
